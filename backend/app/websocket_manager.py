@@ -46,7 +46,7 @@ class ConnectionManager:
             return
 
         try:
-            print("progress value: ", data["value"])
+            print("progress value: ",data["value"])
             await ws.send_json(data)
         except Exception as e:
             print(f"[!] Send failed (frontend {device_id}): {e}")

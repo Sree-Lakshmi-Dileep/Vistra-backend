@@ -14,7 +14,7 @@ async def agent_ws(websocket: WebSocket, device_id: str):
         while True:
             message = await websocket.receive_json()
             event = message.get("event")
-            print("Event received")
+            #print("Event received")
             if event == "ping":
                 manager.last_seen[device_id] = time.time()
             elif event == "SCAN_START":
@@ -25,18 +25,13 @@ async def agent_ws(websocket: WebSocket, device_id: str):
                 await manager.send_to_frontend(device_id, message)
 
             elif event == "FILE_RESULT":
-                file_id = save_file(
-                    scan_id=scan_id,
-                    file_path=message["file_path"],
-                    is_malicious=message["is_malicious"],
-                    layer="layer1"
-                )
-
-                message["file_id"] = file_id
+                
                 await manager.send_to_frontend(device_id, message)
 
-            elif event == "SCAN_COMPLETE":
-                complete_scan(scan_id)
+            elif event == "SCAN_COMPLETED":
+                #complete_scan(scan_id)
+
+                print(message.get("type"))
                 await manager.send_to_frontend(device_id, message)
 
             elif event == "DELETE_CONFIRMED":
