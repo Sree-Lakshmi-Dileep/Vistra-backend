@@ -24,7 +24,7 @@ async def agent_ws(websocket: WebSocket, device_id: str):
             elif event == "SCAN_PROGRESS":
                 await manager.send_to_frontend(device_id, message)
 
-            elif event == "FILE_RESULT":
+            elif event == "FILE_COUNT":
                 
                 await manager.send_to_frontend(device_id, message)
 
